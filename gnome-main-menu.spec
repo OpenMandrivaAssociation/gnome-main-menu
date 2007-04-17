@@ -1,18 +1,31 @@
 %define name gnome-main-menu
-%define version 0.6.3
-%define major 0
-%define libname %mklibname %{name}_ %major
+%define version 0.9.8
+%define svn 258
+%if %svn
+%define release %mkrel 0.%svn.1
+%else
+%define release %mkrel 1
+%endif
+
+%define libname %mklibname %{name}
+#Legacy name (obsolete)
+%define obslibname %mklibname %{name}_ 0
+
 
 Name:           %name 
 License:        GPL
 Group:          System/GUI/GNOME
-Version:        0.6.3
-Release:        %mkrel 1
+Version:        %version
+Release:        %release
 Summary:        The GNOME Desktop Menu
-Source:         %{name}-%{version}.tar.gz
+%if %svn
+Source:         %{name}-%{version}-%{svn}.tar.bz2
+%else
+Source:         %{name}-%{version}.tar.bz2
+%endif
 Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
+BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
 BuildRequires:  libgtop2.0-devel networkmanager-devel hal-devel libiw-devel
 BuildRequires:  scrollkeeper desktop-file-utils
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
@@ -32,32 +45,25 @@ The GNOME Desktop Menu and Application Browser.
 %package -n %{libname}
 Summary: Libraries package for %{name}
 Group: System/Libraries
+Obsoletes: %{obslibname}
+Obsoletes: %{obslibname}-devel
 
 %description -n %{libname}
 Libraries package for %{name}.
 
-%package -n %{libname}-devel
-Summary: Development package for %{name}
-Group: Development/Other
-Requires: %libname = %version
-Provides: %libname-devel = %version-%release
-Requires: %{name} = %{version} gtk2-devel libgnomeui2-devel libbonoboui2-devel libglade2.0-deve 
-Requires: gnome-desktop-devel gnome-menus-devel glib2-devel pango-devel
-
-%description -n %{libname}-devel
-Development package for %{name}
-
 %prep
-%setup -q -n gnome-main-menu-%{version}
+%setup -q
 
 %build
-%configure2_5x
+sed -i s/^ENABLE_DYNAMIC_LIBSLAB=1/ENABLE_DYNAMIC_LIBSLAB=0/ configure.in
+./autogen.sh -V
+%configure2_5x \
+  --enable-nautilus-extension
 
 %make
 
 %install
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
-#make install DESTDIR=$RPM_BUILD_ROOT
 %makeinstall_std
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 %find_lang %{name}
@@ -93,23 +99,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/gnome-2.0/ui/GNOME_MainMenu_ContextMenu.xml
 %{_datadir}/gnome/autostart/application-browser.desktop
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/*
 %{_datadir}/applications/application-browser.desktop
-%{_datadir}/applications/control-center.desktop
-%{_datadir}/applications/main-menu-rug.desktop
+%{_datadir}/applications/gnome-screensaver-lock.desktop
+%{_datadir}/applications/gnome-session-kill.desktop
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*
 
 %files -n %{libname}
 %defattr (-, root, root)
-%{_libdir}/*.so.%{major}*
 %{_libdir}/bonobo/servers/GNOME_MainMenu.server
 %{_libdir}/main-menu
-
-%files -n %{libname}-devel
-%defattr(-,root,root)
-%{_libdir}/lib*.a
-%{_libdir}/*.so
-%attr(644,root,root) %{_libdir}/lib*.la
-%{_includedir}/*
-%_libdir/pkgconfig/*
-
+%{_libdir}/nautilus/extensions-1.0/libnautilus-main-menu.*
 
