@@ -14,7 +14,7 @@
 
 Name:           %name 
 License:        GPL
-Group:          System/GUI/GNOME
+Group:          Graphical desktop/GNOME
 Version:        %version
 Release:        %release
 Summary:        The GNOME Desktop Menu
