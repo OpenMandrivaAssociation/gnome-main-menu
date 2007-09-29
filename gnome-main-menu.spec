@@ -2,9 +2,9 @@
 %define version 0.9.8
 %define svn 258
 %if %svn
-%define release %mkrel 0.%svn.2
+%define release %mkrel 0.%svn.3
 %else
-%define release %mkrel 2
+%define release %mkrel 3
 %endif
 
 %define libname %mklibname %{name}
