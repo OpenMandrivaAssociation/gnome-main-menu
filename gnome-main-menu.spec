@@ -24,6 +24,7 @@ Source:         %{name}-%{version}-%{svn}.tar.bz2
 Source:         %{name}-%{version}.tar.bz2
 %endif
 Url:            http://www.gnome.org
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
 BuildRequires:  libgtop2.0-devel networkmanager-devel hal-devel libiw-devel
 BuildRequires:  scrollkeeper desktop-file-utils
