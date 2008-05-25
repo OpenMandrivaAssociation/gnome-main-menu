@@ -29,7 +29,7 @@ Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
 BuildRequires:  libgtop2.0-devel networkmanager-devel hal-devel libiw-devel
-BuildRequires:  scrollkeeper desktop-file-utils
+BuildRequires:  scrollkeeper desktop-file-utils networkmanager-glib-devel
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
 Requires:	%{libname} = %{version}
 
