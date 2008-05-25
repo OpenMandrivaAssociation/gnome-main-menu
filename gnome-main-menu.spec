@@ -1,13 +1,15 @@
 %define name gnome-main-menu
-%define version 0.9.8
-%define svn 258
+%define version 0.9.10
+%define svn 0
+%define rel 1
 %if %svn
-%define release %mkrel 0.%svn.3
+%define release %mkrel -c %svn %rel
 %else
-%define release %mkrel 3
+%define release %mkrel %rel
 %endif
 
 %define libname %mklibname %{name}
+%define develname %mklibname -d %{name}
 #Legacy name (obsolete)
 %define obslibname %mklibname %{name}_ 0
 
@@ -46,17 +48,23 @@ The GNOME Desktop Menu and Application Browser.
 Summary: Libraries package for %{name}
 Group: System/Libraries
 Obsoletes: %{obslibname}
-Obsoletes: %{obslibname}-devel
 
 %description -n %{libname}
 Libraries package for %{name}.
+
+%package -n %{develname}
+Summary: Development package for %{name}
+Group: Development/Other
+Requires: %libname = %version
+
+%description -n %{develname}
+This package contains development files for %{name}.
 
 %prep
 %setup -q
 
 %build
 sed -i s/^ENABLE_DYNAMIC_LIBSLAB=1/ENABLE_DYNAMIC_LIBSLAB=0/ configure.in
-./autogen.sh -V
 %configure2_5x \
   --enable-nautilus-extension
 
@@ -110,4 +118,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/bonobo/servers/GNOME_MainMenu.server
 %{_libdir}/main-menu
 %{_libdir}/nautilus/extensions-1.0/libnautilus-main-menu.*
+%{_libdir}/*.so.0*
 
+%files -n %{develname}
+%defattr (-, root, root)
+%{_libdir}/*.so
+%{_libdir}/*.la
+%{_libdir}/*.a
+%{_includedir}/slab
+%{_libdir}/pkgconfig/*.pc
