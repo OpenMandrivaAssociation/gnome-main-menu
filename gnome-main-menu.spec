@@ -86,12 +86,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %define schemas slab control-center application-browser
 
+%if %mdkversion < 200900
 %post
 %post_install_gconf_schemas %{schemas}
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
+%endif
 
 %preun
 %preun_uninstall_gconf_schemas %{schemas}
