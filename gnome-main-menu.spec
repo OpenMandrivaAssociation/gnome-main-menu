@@ -1,7 +1,7 @@
 %define name gnome-main-menu
 %define version 0.9.10
 %define svn 0
-%define rel 1
+%define rel 2
 %if %svn
 %define release %mkrel -c %svn %rel
 %else
@@ -15,7 +15,7 @@
 
 
 Name:           %name 
-License:        GPL
+License:        GPLv2+
 Group:          Graphical desktop/GNOME
 Version:        %version
 Release:        %release
@@ -28,8 +28,8 @@ Source:         %{name}-%{version}.tar.bz2
 Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
-BuildRequires:  libgtop2.0-devel networkmanager-devel hal-devel libiw-devel
-BuildRequires:  scrollkeeper desktop-file-utils networkmanager-glib-devel
+BuildRequires:  libgtop2.0-devel hal-devel libiw-devel
+BuildRequires:  scrollkeeper desktop-file-utils libnm_glib-devel
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
 Requires:	%{libname} = %{version}
 
