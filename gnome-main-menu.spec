@@ -1,7 +1,7 @@
 %define name gnome-main-menu
 %define version 0.9.10
 %define svn 0
-%define rel 2
+%define rel 3
 %if %svn
 %define release %mkrel -c %svn %rel
 %else
