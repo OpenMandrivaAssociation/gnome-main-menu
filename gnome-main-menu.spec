@@ -1,7 +1,7 @@
 %define name gnome-main-menu
-%define version 0.9.10
+%define version 0.9.12
 %define svn 0
-%define rel 3
+%define rel 1
 %if %svn
 %define release %mkrel -c %svn %rel
 %else
@@ -23,11 +23,13 @@ Summary:        The GNOME Desktop Menu
 %if %svn
 Source:         %{name}-%{version}-%{svn}.tar.bz2
 %else
-Source:         %{name}-%{version}.tar.bz2
+Source:         ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 %endif
+Patch:		gnome-main-menu-0.9.12-missing-include.patch
 Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
+BuildRequires:  eel-devel
 BuildRequires:  libgtop2.0-devel hal-devel libiw-devel
 BuildRequires:  scrollkeeper desktop-file-utils libnm_glib-devel
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
@@ -62,6 +64,7 @@ This package contains development files for %{name}.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 sed -i s/^ENABLE_DYNAMIC_LIBSLAB=1/ENABLE_DYNAMIC_LIBSLAB=0/ configure.in
@@ -117,7 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gnome/autostart/application-browser.desktop
 %{_datadir}/applications/application-browser.desktop
 %{_datadir}/applications/gnome-screensaver-lock.desktop
-%{_datadir}/applications/gnome-session-kill.desktop
+%{_datadir}/applications/gnome-session-logout.desktop
+%{_datadir}/applications/gnome-session-shutdown.desktop
+%{_datadir}/applications/trigger-panel-run-dialog.desktop
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
 
