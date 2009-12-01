@@ -1,41 +1,21 @@
-%define name gnome-main-menu
-%define version 0.9.12
-%define svn 0
-%define rel 3
-%if %svn
-%define release %mkrel -c %svn %rel
-%else
-%define release %mkrel %rel
-%endif
-
-%define libname %mklibname %{name}
-%define develname %mklibname -d %{name}
-#Legacy name (obsolete)
-%define obslibname %mklibname %{name}_ 0
-
-
-Name:           %name 
+Name:           gnome-main-menu
 License:        GPLv2+
 Group:          Graphical desktop/GNOME
-Version:        %version
-Release:        %release
+Version:        0.9.13
+Release:        %mkrel 1
 Summary:        The GNOME Desktop Menu
-%if %svn
-Source:         %{name}-%{version}-%{svn}.tar.bz2
-%else
 Source:         ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-%endif
-Patch:		gnome-main-menu-0.9.12-missing-include.patch
+Patch0:		gnome-main-menu-0.9.13-nm-glib.patch
 Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool libgnomeui2-devel dbus-glib-devel librsvg2-devel
 BuildRequires:  eel-devel
 BuildRequires:  libgtop2.0-devel hal-devel libiw-devel
 BuildRequires:  libglade2.0-devel
-BuildRequires:  scrollkeeper desktop-file-utils libnm_glib-devel
+BuildRequires:  scrollkeeper desktop-file-utils libnm-glib-devel
+BuildRequires:	unique-devel libslab-devel
+Obsoletes:	%{_lib}gnome-main-menu < 0.9.13
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
-Requires:	%{libname} = %{version}
-
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires(pre):  GConf2
@@ -47,37 +27,22 @@ Requires(postun): scrollkeeper
 %description
 The GNOME Desktop Menu and Application Browser.
 
-%package -n %{libname}
-Summary: Libraries package for %{name}
-Group: System/Libraries
-Obsoletes: %{obslibname}
-
-%description -n %{libname}
-Libraries package for %{name}.
-
-%package -n %{develname}
-Summary: Development package for %{name}
-Group: Development/Other
-Requires: %libname = %version
-
-%description -n %{develname}
-This package contains development files for %{name}.
-
 %prep
 %setup -q
-%patch -p1
+%patch0 -p0
 
 %build
-sed -i s/^ENABLE_DYNAMIC_LIBSLAB=1/ENABLE_DYNAMIC_LIBSLAB=0/ configure.in
+autoreconf -fi
 %configure2_5x \
+  --disable-static \
+  --disable-schemas-install \
   --enable-nautilus-extension
 
 %make
 
 %install
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
+rm -fr %buildroot
 %makeinstall_std
-unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 %find_lang %{name}
 
 #autorun
@@ -86,9 +51,9 @@ cp application-browser/etc/application-browser.desktop $RPM_BUILD_ROOT/%{_datadi
 sed -i "/^Exec=/ s/application-browser *$/application-browser -h/" $RPM_BUILD_ROOT/%{_datadir}/gnome/autostart/application-browser.desktop
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %buildroot
 
-%define schemas slab control-center application-browser
+%define schemas slab application-browser
 
 %if %mdkversion < 200900
 %post
@@ -104,14 +69,6 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 %preun_uninstall_gconf_schemas %{schemas}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %files -f %{name}.lang
 %defattr (-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README
@@ -126,18 +83,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/trigger-panel-run-dialog.desktop
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
-
-%files -n %{libname}
-%defattr (-, root, root)
 %{_libdir}/bonobo/servers/GNOME_MainMenu.server
-%{_libdir}/main-menu
+%{_libexecdir}/main-menu
 %{_libdir}/nautilus/extensions-1.0/libnautilus-main-menu.*
-%{_libdir}/*.so.0*
-
-%files -n %{develname}
-%defattr (-, root, root)
-%{_libdir}/*.so
-%{_libdir}/*.la
-%{_libdir}/*.a
-%{_includedir}/slab
-%{_libdir}/pkgconfig/*.pc
