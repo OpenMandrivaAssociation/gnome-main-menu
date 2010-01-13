@@ -2,7 +2,7 @@ Name:           gnome-main-menu
 License:        GPLv2+
 Group:          Graphical desktop/GNOME
 Version:        0.9.13
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        The GNOME Desktop Menu
 Source:         ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 Patch0:		gnome-main-menu-0.9.13-nm-glib.patch
