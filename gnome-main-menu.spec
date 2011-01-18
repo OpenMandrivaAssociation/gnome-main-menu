@@ -8,12 +8,26 @@ Source:         ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.t
 Patch0:		gnome-main-menu-0.9.15-mandriva-integration.patch
 Url:            http://www.gnome.org
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  gnome-common gnome-desktop-devel gnome-menus-devel gnome-panel-devel libnautilus-devel gtk-doc intltool dbus-glib-devel librsvg2-devel
+BuildRequires:  gnome-common
+BuildRequires:	gnome-desktop-devel
+BuildRequires:	gnome-menus-devel
+BuildRequires:	gnome-panel-devel
+BuildRequires:	libnautilus-devel
+BuildRequires:	gtk-doc
+BuildRequires:	intltool
+BuildRequires:	dbus-glib-devel
+BuildRequires:	librsvg2-devel
 # BuildRequires:  eel-devel
-BuildRequires:  libgtop2.0-devel hal-devel libiw-devel
+BuildRequires:  libgtop2.0-devel
+BuildRequires:	hal-devel
+BuildRequires:	libiw-devel
 BuildRequires:  libglade2.0-devel
-BuildRequires:  scrollkeeper desktop-file-utils libnm-glib-devel
-BuildRequires:	unique-devel libslab-devel
+BuildRequires:  scrollkeeper
+BuildRequires:	desktop-file-utils
+BuildRequires:	libnm-glib-devel
+BuildRequires:	unique-devel
+BuildRequires:	libslab-devel
+BuildRequires:	libsm-devel
 Obsoletes:	%{_lib}gnome-main-menu < 0.9.15
 Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
 Requires(post): desktop-file-utils
