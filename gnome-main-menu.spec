@@ -1,42 +1,41 @@
-Name:           gnome-main-menu
-License:        GPLv2+
-Group:          Graphical desktop/GNOME
-Version:        0.9.15
-Release:        %mkrel 1
-Summary:        The GNOME Desktop Menu
-Source:         ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
+Summary:	The GNOME Desktop Menu
+Name:		gnome-main-menu
+Version:	0.9.15
+Release:	2
+License:	GPLv2+
+Group:		Graphical desktop/GNOME
+Url:		http://www.gnome.org
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		gnome-main-menu-0.9.15-mandriva-integration.patch
-Url:            http://www.gnome.org
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+
+BuildRequires:	desktop-file-utils
 BuildRequires:  gnome-common
-BuildRequires:	gnome-desktop-devel
-BuildRequires:	gnome-menus-devel
-BuildRequires:	gnome-panel-devel
-BuildRequires:	libnautilus-devel
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
-BuildRequires:	dbus-glib-devel
-BuildRequires:	librsvg2-devel
-# BuildRequires:  eel-devel
-BuildRequires:  libgtop2.0-devel
-BuildRequires:	hal-devel
-BuildRequires:	libiw-devel
-BuildRequires:  libglade2.0-devel
-BuildRequires:  scrollkeeper
-BuildRequires:	desktop-file-utils
-BuildRequires:	libnm-glib-devel
-BuildRequires:	unique-devel
-BuildRequires:	libslab-devel
-BuildRequires:	libsm-devel
+BuildRequires:	libiw30-devel
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(gnome-desktop-2.0)
+#BuildRequires:  pkgconfig(libglade-2.0)
+BuildRequires:	pkgconfig(libgnome-menu)
+BuildRequires:  pkgconfig(libgtop-2.0)
+BuildRequires:	pkgconfig(libnautilus-extension)
+BuildRequires:	pkgconfig(libnm-glib)
+BuildRequires:	pkgconfig(libpanelapplet-2.0)
+BuildRequires:	pkgconfig(libslab)
+BuildRequires:	pkgconfig(sm)
+BuildRequires:	pkgconfig(unique-1.0)
+#BuildRequires:	librsvg2-devel
+
 Obsoletes:	%{_lib}gnome-main-menu < 0.9.15
-Requires:       gnome-panel dbus-glib hal tango-icon-theme gnome-system-monitor
+Requires:	gnome-panel2
+Requires:	dbus-glib
+Requires:	tango-icon-theme
+Requires:	gnome-system-monitor
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 Requires(pre):  GConf2
 Requires(post): GConf2
-Requires(post): scrollkeeper
 Requires(preun):  GConf2
-Requires(postun): scrollkeeper
 
 %description
 The GNOME Desktop Menu and Application Browser.
@@ -48,43 +47,23 @@ The GNOME Desktop Menu and Application Browser.
 %build
 autoreconf -fi
 %configure2_5x \
-  --disable-static \
-  --disable-schemas-install \
-  --enable-nautilus-extension
+	--disable-static \
+	--disable-schemas-install \
+	--enable-nautilus-extension
 
 %make
 
 %install
-rm -fr %buildroot
+rm -fr %{buildroot}
 %makeinstall_std
 %find_lang %{name}
 
 #autorun
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/gnome/autostart
-cp application-browser/etc/application-browser.desktop $RPM_BUILD_ROOT/%{_datadir}/gnome/autostart/
-sed -i "/^Exec=/ s/application-browser *$/application-browser -h/" $RPM_BUILD_ROOT/%{_datadir}/gnome/autostart/application-browser.desktop
-
-%clean
-rm -rf %buildroot
-
-%define schemas slab application-browser
-
-%if %mdkversion < 200900
-%post
-%post_install_gconf_schemas %{schemas}
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
-%preun
-%preun_uninstall_gconf_schemas %{schemas}
+mkdir -p %{buildroot}/%{_datadir}/gnome/autostart
+cp application-browser/etc/application-browser.desktop %{buildroot}/%{_datadir}/gnome/autostart/
+sed -i "/^Exec=/ s/application-browser *$/application-browser -h/" %{buildroot}/%{_datadir}/gnome/autostart/application-browser.desktop
 
 %files -f %{name}.lang
-%defattr (-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README
 %{_sysconfdir}/gconf/schemas/*.schemas
 %{_bindir}/*
@@ -100,3 +79,4 @@ rm -rf %buildroot
 %{_libdir}/bonobo/servers/GNOME_MainMenu.server
 %{_libexecdir}/main-menu
 %{_libdir}/nautilus/extensions-2.0/libnautilus-main-menu.*
+
