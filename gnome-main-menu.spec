@@ -13,7 +13,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:  gnome-common
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
-BuildRequires:	libiw30-devel
+BuildRequires:	libiw-devel
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(gnome-desktop-2.0)
 #BuildRequires:  pkgconfig(libglade-2.0)
@@ -43,7 +43,7 @@ The GNOME Desktop Menu and Application Browser.
 
 %prep
 %setup -q
-%aaply_patches
+%apply_patches
 
 %build
 autoreconf -fi
