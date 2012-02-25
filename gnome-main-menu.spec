@@ -7,6 +7,7 @@ Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		gnome-main-menu-0.9.15-mandriva-integration.patch
+Patch1:		gnome-main-menu-0.9.15_glib_h.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:  gnome-common
@@ -42,7 +43,7 @@ The GNOME Desktop Menu and Application Browser.
 
 %prep
 %setup -q
-%patch0 -p1
+%aaply_patches
 
 %build
 autoreconf -fi
