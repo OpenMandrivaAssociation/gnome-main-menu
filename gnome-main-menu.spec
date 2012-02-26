@@ -1,31 +1,26 @@
 Summary:	The GNOME Desktop Menu
 Name:		gnome-main-menu
-Version:	0.9.15
-Release:	2
+Version:	0.9.16
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://www.gnome.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.bz2
-Patch0:		gnome-main-menu-0.9.15-mandriva-integration.patch
 Patch1:		gnome-main-menu-0.9.15_glib_h.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:  gnome-common
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
-BuildRequires:	libiw-devel
-BuildRequires:	pkgconfig(dbus-glib-1)
+#BuildRequires:	libiw-devel
+#BuildRequires:	pkgconfig(libnm-glib)
 BuildRequires:	pkgconfig(gnome-desktop-2.0)
-#BuildRequires:  pkgconfig(libglade-2.0)
-BuildRequires:	pkgconfig(libgnome-menu)
 BuildRequires:  pkgconfig(libgtop-2.0)
 BuildRequires:	pkgconfig(libnautilus-extension)
-BuildRequires:	pkgconfig(libnm-glib)
 BuildRequires:	pkgconfig(libpanelapplet-2.0)
 BuildRequires:	pkgconfig(libslab)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(unique-1.0)
-#BuildRequires:	librsvg2-devel
 
 Obsoletes:	%{_lib}gnome-main-menu < 0.9.15
 Requires:	gnome-panel2
@@ -57,6 +52,7 @@ autoreconf -fi
 %install
 rm -fr %{buildroot}
 %makeinstall_std
+find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 %find_lang %{name}
 
 #autorun
@@ -79,5 +75,5 @@ sed -i "/^Exec=/ s/application-browser *$/application-browser -h/" %{buildroot}/
 %{_datadir}/%{name}/*
 %{_libdir}/bonobo/servers/GNOME_MainMenu.server
 %{_libexecdir}/main-menu
-%{_libdir}/nautilus/extensions-2.0/libnautilus-main-menu.*
+%{_libdir}/nautilus/extensions-3.0/libnautilus-main-menu.*
 
