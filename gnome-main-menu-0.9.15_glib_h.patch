@@ -1,0 +1,11 @@
+--- gnome-main-menu-0.9.15/main-menu/src/tomboykeybinder.h~	2010-05-21 04:19:29.000000000 -0600
++++ gnome-main-menu-0.9.15/main-menu/src/tomboykeybinder.h	2012-02-25 17:07:11.613178158 -0700
+@@ -21,7 +21,7 @@
+ #ifndef __TOMBOY_KEY_BINDER_H__
+ #define __TOMBOY_KEY_BINDER_H__
+ 
+-#include <glib/gtypes.h>
++#include <glib.h>
+ 
+ G_BEGIN_DECLS
+ 
