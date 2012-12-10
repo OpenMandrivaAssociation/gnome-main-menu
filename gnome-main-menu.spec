@@ -77,3 +77,88 @@ sed -i "/^Exec=/ s/application-browser *$/application-browser -h/" %{buildroot}/
 %{_libexecdir}/main-menu
 %{_libdir}/nautilus/extensions-3.0/libnautilus-main-menu.*
 
+
+
+%changelog
+* Sun Feb 26 2012 Matthew Dawkins <mattydaw@mandriva.org> 0.9.16-1
++ Revision: 780823
+- new version 0.9.16
+- p0 upstreamed
+- removed unnecessary BRs
+- disabled iw and nm build (no longer supported)
+- added p1 to fix glib.h build failure
+- rebuild
+- cleaned up spec
+
+* Tue Jan 18 2011 Alexandre Lissy <alissy@mandriva.com> 0.9.15-1
++ Revision: 631621
+- * Adding BuildRequires against libsm-devel
+- * Update to 0.9.15 release
+ * Better mandriva integration (draknet/network manager, etc.)
+
+  + Götz Waschk <waschk@mandriva.org>
+    - rebuild for new libgnome-desktop
+
+* Tue Dec 01 2009 Funda Wang <fwang@mandriva.org> 0.9.13-1mdv2010.1
++ Revision: 472176
+- new version 0.9.13
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Sat Mar 14 2009 Emmanuel Andry <eandry@mandriva.org> 0.9.12-2mdv2009.1
++ Revision: 355134
+- rebuild
+
+* Tue Jan 06 2009 Götz Waschk <waschk@mandriva.org> 0.9.12-1mdv2009.1
++ Revision: 326210
+- update build deps
+- new version
+- fix build
+- update file list
+
+* Thu Nov 06 2008 Götz Waschk <waschk@mandriva.org> 0.9.10-3mdv2009.1
++ Revision: 300206
+- rebuild for new  gnome-desktop
+
+* Wed Jul 23 2008 Götz Waschk <waschk@mandriva.org> 0.9.10-2mdv2009.0
++ Revision: 242327
+- fix build deps
+- update license
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Sun May 25 2008 Funda Wang <fwang@mandriva.org> 0.9.10-1mdv2009.0
++ Revision: 211111
+- BR networkmanager-glib
+- New version 0.9.10
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Sat Sep 29 2007 Emmanuel Andry <eandry@mandriva.org> 0.9.8-0.258.3mdv2008.0
++ Revision: 93923
+- rebuild for latest libiw (bug #33978)
+
+* Thu Jun 21 2007 Funda Wang <fwang@mandriva.org> 0.9.8-0.258.2mdv2008.0
++ Revision: 42281
+- fix rpm group
+
+* Tue Apr 17 2007 Colin Guthrie <cguthrie@mandriva.org> 0.9.8-0.258.1mdv2008.0
++ Revision: 13644
+- Update to 0.9.8 (svn258)
+- Compile libslab statically until gnome-control-center is updated
+
+
+* Fri Mar 09 2007 Jérôme Soyer <saispo@mandriva.org> 0.6.3-1mdv2007.1
++ Revision: 138723
+- Add BR
+- Add BR
+- Add BR
+- Import gnome-main-menu
+
