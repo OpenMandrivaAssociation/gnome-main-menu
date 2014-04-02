@@ -19,7 +19,7 @@ BuildRequires:	pkgconfig(mate-desktop-2.0)
 BuildRequires:	pkgconfig(libgtop-2.0)
 BuildRequires:	pkgconfig(libcaja-extension)
 BuildRequires:	pkgconfig(libmatepanelapplet-4.0)
-#BuildRequires:	pkgconfig(libslab)
+BuildRequires:	pkgconfig(libslab)
 BuildRequires:	pkgconfig(sm)
 BuildRequires:	pkgconfig(unique-1.0)
 Requires:	dbus-glib
