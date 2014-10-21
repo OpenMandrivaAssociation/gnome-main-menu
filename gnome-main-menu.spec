@@ -9,6 +9,7 @@ License:	GPLv2+
 Url:		http://mate-desktop.org
 Group:		Graphical desktop/GNOME
 Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
+Patch0:		gnome-main-menu-1.8.0_format-not-a-literal-string.patch
 BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	libiw-devel
