@@ -4,7 +4,7 @@
 Summary:	Menu and Application Browser for MATE Desktop
 Name:		gnome-main-menu
 Version:	1.8.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Url:		http://mate-desktop.org
 Group:		Graphical desktop/GNOME
@@ -36,8 +36,7 @@ The MATE Desktop Menu and Application Browser.
 %apply_patches
 
 %build
-%configure2_5x \
-	--disable-static \
+%configure \
 	--enable-caja-extension
 
 %make
@@ -65,3 +64,4 @@ The MATE Desktop Menu and Application Browser.
 %{_datadir}/mate-control-center/system-items.xbel
 %{_datadir}/mate-panel/applets/org.mate.GNOMEMainMenu.mate-panel-applet
 %{_mandir}/man1/application-browser.1*
+
