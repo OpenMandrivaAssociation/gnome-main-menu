@@ -4,7 +4,7 @@
 Summary:	Menu and Application Browser for MATE Desktop
 Name:		gnome-main-menu
 Version:	1.8.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Url:		http://mate-desktop.org
 Group:		Graphical desktop/GNOME
