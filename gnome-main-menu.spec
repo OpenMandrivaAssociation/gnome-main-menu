@@ -10,6 +10,11 @@ Url:		https://mate-desktop.org
 Group:		Graphical desktop/GNOME
 Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		gnome-main-menu-1.8.0_format-not-a-literal-string.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	libiw-devel
